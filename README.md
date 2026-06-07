@@ -40,7 +40,9 @@ import { createBackend } from '@backstage/backend-defaults';
 
 const backend = createBackend();
 // ... other backend.add(...) calls
-backend.add(import('backstage-plugin-scaffolder-markdown-merge'));
+backend.add(
+  import('@shawncheng888/plugin-scaffolder-backend-module-markdown-merge'),
+);
 
 backend.start();
 ```
@@ -228,16 +230,17 @@ Publishing is automated via GitHub Actions and **npm Trusted Publishing (OIDC)**
 The package must exist on npm before Trusted Publishing can be configured against it. For the very first release:
 
 1. Log in locally: `npm login`
-2. Build and publish once with provenance enabled, which both creates the package and primes the provenance chain:
+2. Build and publish once to create the package on the registry. The plain `npm` CLI is the reliable path here — `yarn npm publish --provenance` will fail with `YN0091` because Yarn 4 only generates provenance in a recognised CI environment, and the `--provenance`-less form has its own auth quirks:
    ```console
    yarn install
    yarn build
-   yarn npm publish --provenance --access public
+   npm publish --access public
    ```
+   This first publish (0.1.0) will not carry a Provenance badge — that only starts from the first release published via the GitHub Actions workflow below.
 3. On [npmjs.com](https://www.npmjs.com/package/@shawncheng888/plugin-scaffolder-backend-module-markdown-merge) → Settings → **Trusted publishers** → Add a trusted publisher:
    - Provider: **GitHub Actions**
    - Repository owner: **joint-song**
-   - Repository name: **backstage-plugin-scaffolder-markdown-merge**
+   - Repository name: **plugin-scaffolder-backend-module-markdown-merge**
    - Workflow filename: **release.yml**
    - Environment name: **npm** (must match the `environment` block in the workflow, or leave blank if you remove it)
 
