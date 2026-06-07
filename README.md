@@ -1,6 +1,6 @@
 # Backstage Scaffolder Markdown Merge
 
-[![CI](https://github.com/joint-song/backstage-plugin-scaffolder-markdown-merge/actions/workflows/ci.yml/badge.svg)](https://github.com/joint-song/backstage-plugin-scaffolder-markdown-merge/actions/workflows/ci.yml)
+[![CI](https://github.com/joint-song/plugin-scaffolder-backend-module-markdown-merge/actions/workflows/ci.yml/badge.svg)](https://github.com/joint-song/plugin-scaffolder-backend-module-markdown-merge/actions/workflows/ci.yml)
 
 A [Backstage](https://backstage.io) scaffolder action that merges multiple Markdown fragments into a target document at named slot markers. Useful for composing `AGENTS.md`, `README.md`, `CONTRIBUTING.md`, and other Markdown files from reusable, independently-maintained fragments during Software Template execution.
 
