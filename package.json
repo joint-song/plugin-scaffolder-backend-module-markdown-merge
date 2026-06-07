@@ -42,7 +42,7 @@
     "pluginPackage": "@backstage/plugin-scaffolder-backend"
   },
   "scripts": {
-    "build": "backstage-cli package build",
+    "build": "yarn tsc && backstage-cli package build",
     "tsc": "tsc -p tsconfig.build.json",
     "clean": "backstage-cli package clean",
     "prepack": "backstage-cli package prepack",

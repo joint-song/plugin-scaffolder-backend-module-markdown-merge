@@ -36,8 +36,8 @@ jobs:
       - name: Lint
         run: yarn lint
 
-      # --noEmit overrides the base tsconfig's noEmit:false, so this is a
-      # typecheck-only pass and does not write any .d.ts files into src/.
+      # Typecheck-only pass: --noEmit keeps this step side-effect-free so the
+      # subsequent `yarn build` is the single source of truth for dist-types/.
       - name: Typecheck
         run: yarn tsc --noEmit
 
