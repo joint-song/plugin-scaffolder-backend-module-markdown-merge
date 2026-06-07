@@ -1,5 +1,7 @@
 # Backstage Scaffolder Markdown Merge
 
+[![CI](https://github.com/joint-song/backstage-plugin-scaffolder-markdown-merge/actions/workflows/ci.yml/badge.svg)](https://github.com/joint-song/backstage-plugin-scaffolder-markdown-merge/actions/workflows/ci.yml)
+
 A [Backstage](https://backstage.io) scaffolder action that merges multiple Markdown fragments into a target document at named slot markers. Useful for composing `AGENTS.md`, `README.md`, `CONTRIBUTING.md`, and other Markdown files from reusable, independently-maintained fragments during Software Template execution.
 
 The action id is `markdown:merge`.
@@ -216,6 +218,36 @@ src/
 ```
 
 The core merge logic is intentionally split from the Backstage action factory so it can be unit-tested without spinning up a scaffolder context.
+
+## Releasing
+
+Publishing is automated via GitHub Actions and **npm Trusted Publishing (OIDC)** — no long-lived npm token is stored as a repository secret.
+
+### One-time setup
+
+The package must exist on npm before Trusted Publishing can be configured against it. For the very first release:
+
+1. Log in locally: `npm login`
+2. Build and publish once with provenance enabled, which both creates the package and primes the provenance chain:
+   ```console
+   yarn install
+   yarn build
+   yarn npm publish --provenance --access public
+   ```
+3. On [npmjs.com](https://www.npmjs.com/package/@shawncheng888/plugin-scaffolder-backend-module-markdown-merge) → Settings → **Trusted publishers** → Add a trusted publisher:
+   - Provider: **GitHub Actions**
+   - Repository owner: **joint-song**
+   - Repository name: **backstage-plugin-scaffolder-markdown-merge**
+   - Workflow filename: **release.yml**
+   - Environment name: **npm** (must match the `environment` block in the workflow, or leave blank if you remove it)
+
+### Cutting a release
+
+1. Bump the version locally: `yarn version --new-version <patch|minor|major>` (or edit `package.json` by hand).
+2. Commit and push: `git push && git push --tags`.
+3. On GitHub, go to **Releases** → **Draft a new release** → pick the tag (`v0.1.1` etc.) → **Publish**.
+
+The `Release` workflow runs, attaches a signed provenance attestation, and the new version appears on npm within ~30 seconds.
 
 ## License
 

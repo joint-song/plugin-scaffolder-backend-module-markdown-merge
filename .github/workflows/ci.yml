@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Lint, typecheck, test, build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Lint
+        run: yarn lint
+
+      # --noEmit overrides the base tsconfig's noEmit:false, so this is a
+      # typecheck-only pass and does not write any .d.ts files into src/.
+      - name: Typecheck
+        run: yarn tsc --noEmit
+
+      - name: Test
+        run: yarn test --ci
+
+      - name: Build
+        run: yarn build
+
+      - name: Verify dist artifacts
+        run: |
+          test -f dist/index.cjs.js
+          test -f dist/index.d.ts
+          echo "dist contents:"
+          ls -la dist

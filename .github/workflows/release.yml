@@ -1,0 +1,51 @@
+name: Release
+
+# Publishes to npm via Trusted Publishing (OIDC). No long-lived npm token
+# is stored as a GitHub secret. Configure the trusted publisher once on
+# npmjs.com after the package is first published locally (see README).
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    name: Publish to npm
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: npm
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Build
+        run: yarn build
+
+      - name: Sanity-check publishConfig
+        run: |
+          node -e "const p=require('./package.json'); \
+            if(p.publishConfig?.access !== 'public') { \
+              throw new Error('publishConfig.access must be \"public\"'); \
+            }"
+
+      - name: Publish to npm (Trusted Publishing)
+        run: yarn npm publish --provenance --access public
+        env:
+          # secrets.GITHUB_TOKEN is a sentinel that triggers npm's OIDC
+          # exchange. It is not a usable npm token on its own.
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
