@@ -54,7 +54,7 @@
     "@backstage/cli": "^0.36.2",
     "@backstage/plugin-scaffolder-node": "^0.13.3",
     "lodash": "^4.17.21",
-    "zod": "3.23.8"
+    "zod": "4.4.3"
   },
   "devDependencies": {
     "@swc/jest": "^0.2.0",
