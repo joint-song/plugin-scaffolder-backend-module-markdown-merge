@@ -248,7 +248,3 @@ The package must exist on npm before Trusted Publishing can be configured agains
 3. On GitHub, go to **Releases** → **Draft a new release** → pick the tag (`v0.1.1` etc.) → **Publish**.
 
 The `Release` workflow runs, attaches a signed provenance attestation, and the new version appears on npm within ~30 seconds.
-
-## License
-
-Apache-2.0 — see [LICENSE](LICENSE).
