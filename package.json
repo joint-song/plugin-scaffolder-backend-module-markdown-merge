@@ -1,6 +1,6 @@
 {
   "name": "@shawncheng888/plugin-scaffolder-backend-module-markdown-merge",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Backstage scaffolder action that merges Markdown fragments into named slot markers in a target file.",
   "license": "Apache-2.0",
   "packageManager": "yarn@4.12.0",
