@@ -1,7 +1,6 @@
 import {
     handleMissing,
     mergeSlot,
-    MissingBehavior,
     SLOT_TAG_NAME,
 } from './merge';
 
@@ -153,24 +152,16 @@ describe('handleMissing', () => {
         };
     };
 
-    it.each<[MissingBehavior, string]>([
-        ['error', 'oops'],
-        ['warn', 'warned'],
-        ['ignore', 'silent'],
-    ])('handles behavior=%s', (behavior, message) => {
+    it('throws and does not warn when behavior is error', () => {
         const { ctx, warns } = makeCtx();
-        if (behavior === 'error') {
-            expect(() => handleMissing(behavior, ctx, message)).toThrow(
-                message,
-            );
-            expect(warns).toEqual([]);
-        } else if (behavior === 'warn') {
-            handleMissing(behavior, ctx, message);
-            expect(warns).toEqual([message]);
-        } else {
-            handleMissing(behavior, ctx, message);
-            expect(warns).toEqual([]);
-        }
+        expect(() => handleMissing('error', ctx, 'oops')).toThrow('oops');
+        expect(warns).toEqual([]);
+    });
+
+    it('warns with the message and does not throw when behavior is warn', () => {
+        const { ctx, warns } = makeCtx();
+        handleMissing('warn', ctx, 'warned');
+        expect(warns).toEqual(['warned']);
     });
 
     it('does not throw or warn when behavior is ignore', () => {
