@@ -1,4 +1,69 @@
 {
-  "name": "backstage-plugin-scaffolder-markdown-merge",
-  "packageManager": "yarn@4.12.0"
+  "name": "@shawncheng888/plugin-scaffolder-backend-module-markdown-merge",
+  "version": "0.1.0",
+  "description": "Backstage scaffolder action that merges Markdown fragments into named slot markers in a target file.",
+  "license": "Apache-2.0",
+  "packageManager": "yarn@4.12.0",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "keywords": [
+    "backstage",
+    "scaffolder",
+    "scaffolder-action",
+    "markdown",
+    "scaffolder-backend-module"
+  ],
+  "author": {
+    "name": "Shawn Cheng",
+    "url": "https://github.com/joint-song"
+  },
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "main": "dist/index.cjs.js",
+    "types": "dist/index.d.ts"
+  },
+  "homepage": "https://github.com/joint-song/plugin-scaffolder-backend-module-markdown-merge#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joint-song/plugin-scaffolder-backend-module-markdown-merge.git"
+  },
+  "bugs": {
+    "url": "https://github.com/joint-song/plugin-scaffolder-backend-module-markdown-merge/issues"
+  },
+  "backstage": {
+    "role": "backend-plugin-module",
+    "pluginId": "scaffolder",
+    "pluginPackage": "@backstage/plugin-scaffolder-backend"
+  },
+  "scripts": {
+    "build": "backstage-cli package build",
+    "tsc": "tsc -p tsconfig.build.json",
+    "clean": "backstage-cli package clean",
+    "prepack": "backstage-cli package prepack",
+    "postpack": "backstage-cli package postpack",
+    "lint": "backstage-cli package lint",
+    "test": "jest --passWithNoTests"
+  },
+  "dependencies": {
+    "@backstage/cli": "^0.36.2",
+    "@backstage/plugin-scaffolder-node": "^0.13.3",
+    "lodash": "^4.17.21",
+    "zod": "3.23.8"
+  },
+  "devDependencies": {
+    "@swc/jest": "^0.2.0",
+    "@types/jest": "^30.0.0",
+    "@types/lodash": "^4",
+    "@types/node": "^22.10.0",
+    "jest": "^30.0.0",
+    "jest-environment-node": "^30.0.0",
+    "prettier": "^3.4.0",
+    "typescript": "^5.7.0"
+  }
 }

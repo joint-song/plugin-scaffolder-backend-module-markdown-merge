@@ -1,0 +1,33 @@
+{
+  "name": "Backstage Plugin Scaffolder Markdown Merge",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:1": {
+      "configureZsh": true
+    },
+    "ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {}
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "editor.formatOnSave": true
+      }
+    }
+  },
+  "remoteUser": "node",
+  "updateRemoteUserUID": true,
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/backstage-plugin-scaffolder-markdown-merge,type=bind,consistency=delegated",
+  "postStartCommand": "sudo chown -R $(whoami) ${containerWorkspaceFolder}/node_modules && sudo chown -R $(whoami) ${containerWorkspaceFolder}/.yarn",
+  "mounts": [
+    {
+      "source": "${localEnv:HOME}/.claude",
+      "target": "/home/node/.claude",
+      "type": "bind"
+    },
+    "source=${localWorkspaceFolderBasename}-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume",
+    "source=${localWorkspaceFolderBasename}-.yarn,target=${containerWorkspaceFolder}/.yarn,type=volume"
+  ]
+}

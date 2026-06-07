@@ -1,0 +1,33 @@
+# Dependencies
+node_modules
+
+# Yarn
+/.yarn/*
+/.yarn/cache
+/.yarn/install-state.gz
+/.yarn/unplugged
+/.yarn/build-state.yml
+/.yarn/.gitignore
+/.pnp.cjs
+/.pnp.loader.mjs
+
+# Build output
+/dist
+/dist-types
+# Stray declaration files emitted into src/ by stray tsc runs
+/src/**/*.d.ts
+*.tsbuildinfo
+
+# Test output
+/coverage
+
+# Claude Code local session
+.claude
+
+# OS / editor misc
+.DS_Store
+Thumbs.db
+*.log
+.env
+.env.local
+.env.*.local
