@@ -17,3 +17,6 @@ updates:
     labels:
       - "dependencies"
     open-pull-requests-limit: 5
+    # Auto-rebase PRs when the base branch changes (e.g. CI config was fixed
+    # on main). Avoids the manual "/dependabot rebase" round-trip.
+    rebase-strategy: auto
